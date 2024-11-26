@@ -6,6 +6,10 @@ import auth from "../middleware/auth.middleware.js";
 const router = Router()
 
 router.use(auth)
+
+router.get('/', (req, res) => {
+    res.send('AT DMS is working')
+})
 router.post('/', upload.single('doc'), create)
 router.get('/:referenceNo', get)
 
