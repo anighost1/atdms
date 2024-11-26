@@ -32,8 +32,11 @@ export const get = async (req, res) => {
         }
 
         const docData = await getDocDal(referenceNo)
+        if (!docData) {
+            throw new Error('No document found')
+        }
         const docDataPlain = docData.toObject ? docData.toObject() : { ...docData };
-        if (docData) {
+        if (docDataPlain) {
             docDataPlain.docPath = `${req.protocol}://${req.get('host')}/doc/${docData?.fileName}`;
         } else {
             throw new Error('No document found')
